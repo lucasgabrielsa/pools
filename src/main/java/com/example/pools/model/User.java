@@ -34,6 +34,15 @@ import com.example.pools.model.audit.DateAudit;
 })
 public class User extends DateAudit {
 	
+	public User(@NotBlank @Size(max = 40) String name, @NotBlank @Size(max = 15) String username,
+			@NotBlank @Size(max = 40) @Email String email, @NotBlank @Size(max = 40) String password) {
+		super();
+		this.name = name;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
