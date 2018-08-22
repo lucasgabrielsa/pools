@@ -34,20 +34,10 @@ import com.example.pools.model.audit.DateAudit;
 })
 public class User extends DateAudit {
 	
-	public User(@NotBlank @Size(max = 40) String name, @NotBlank @Size(max = 15) String username,
-			@NotBlank @Size(max = 40) @Email String email, @NotBlank @Size(max = 40) String password) {
-		super();
-		this.name = name;
-		this.username = username;
-		this.email = email;
-		this.password = password;
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	
+		
 	@NotBlank
 	@Size(max=40)
 	private String name;
@@ -63,7 +53,7 @@ public class User extends DateAudit {
 	private String email;
 	
 	@NotBlank
-	@Size(max=40)	
+	@Size(max = 100)	
 	private String password;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -72,9 +62,14 @@ public class User extends DateAudit {
 		inverseJoinColumns = @JoinColumn(name="role_id"))
 	private Set<Role> roles = new HashSet<>();
 	
-	public User() {
-		
-	}
+	public User() {	}
+	
+	public User(String name, String username, String email, String password) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 
 	public Long getId() {
 		return id;

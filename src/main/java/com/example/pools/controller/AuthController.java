@@ -49,19 +49,13 @@ public class AuthController {
 
     @Autowired
     JwtTokenProvider tokenProvider;
-    
-    @GetMapping("/teste")
-    public String getTeste() {
-    	return "teste";
-    }
-    
-
+      
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUserNameOrEmail(),
+                        loginRequest.getUsernameOrEmail(),
                         loginRequest.getPassword()
                 )
         );
