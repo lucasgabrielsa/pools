@@ -22,7 +22,7 @@ public class Role {
 	@Enumerated(EnumType.STRING)
 	@NaturalId
 	@Column(length=60)
-	private RoleName name;
+	private String name;
 	
 	public Role() {
 		
@@ -36,11 +36,11 @@ public class Role {
 		this.id = id;
 	}
 
-	public RoleName getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(RoleName name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	

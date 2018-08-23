@@ -9,7 +9,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "polls")
@@ -68,7 +70,7 @@ public class Poll extends UserDateAudit {
     }
 
     public void removeChoice(Choice choice) {
-        this.choices.remove(coice);
+        this.choices.remove(choice);
         choice.setPoll(null);
     }
 
