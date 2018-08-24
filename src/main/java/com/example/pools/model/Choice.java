@@ -11,7 +11,7 @@ public class Choice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @NotBlank
     @Size(max = 40)
@@ -30,11 +30,11 @@ public class Choice {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        id = id;
     }
 
     public String getText() {
@@ -58,7 +58,7 @@ public class Choice {
         if(this == o) return true;
         if(o == null || getClass() != o.getClass()) return false;
         Choice choise = (Choice) o;
-        return Objects.equals(id, choice.id);
+        return Objects.equals(this.id, choise.id);
     }
 
     @Override

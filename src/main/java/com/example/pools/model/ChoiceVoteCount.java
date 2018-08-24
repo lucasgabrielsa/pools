@@ -1,7 +1,6 @@
 package com.example.pools.model;
 
 public class ChoiceVoteCount {
-
     private Long choiceId;
     private Long voteCount;
 

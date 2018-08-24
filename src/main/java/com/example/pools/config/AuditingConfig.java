@@ -12,25 +12,26 @@ import java.util.Optional;
 
 import java.util.Optional;
 
+
 @Configuration
 @EnableJpaAuditing
 public class AuditingConfig {
 
     @Bean
-    public AuditorWare<Long> auditorProvider() {
+    public AuditorAware<Long> auditorProvider() {
         return new SpringSecurityAuditAwareImpl();
     }
-
 }
 
 class SpringSecurityAuditAwareImpl implements AuditorAware<Long> {
 
     @Override
     public Optional<Long> getCurrentAuditor() {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if(authentication == null || !authentication.isAuthenticated() || authentication instanceof AnonymousAuthenticationToken) {
+        if (authentication == null ||
+                !authentication.isAuthenticated() ||
+                authentication instanceof AnonymousAuthenticationToken) {
             return Optional.empty();
         }
 
@@ -39,4 +40,3 @@ class SpringSecurityAuditAwareImpl implements AuditorAware<Long> {
         return Optional.ofNullable(userPrincipal.getId());
     }
 }
-

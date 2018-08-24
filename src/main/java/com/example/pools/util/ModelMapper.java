@@ -37,5 +37,7 @@ public class ModelMapper {
 
         }).collect(Collectors.toList());
 
+        return pollResponse;
+
     }
 }

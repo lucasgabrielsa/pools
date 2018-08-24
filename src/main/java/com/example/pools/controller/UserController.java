@@ -7,6 +7,7 @@ import com.example.pools.repository.UserRepository;
 import com.example.pools.repository.VoteRepository;
 import com.example.pools.security.CurrentUser;
 import com.example.pools.security.UserPrincipal;
+import com.example.pools.service.PollService;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
