@@ -1,19 +1,26 @@
 package com.example.pools.controller;
 
-import com.example.pools.model.Livro;
-import com.example.pools.payload.PagedResponse;
-import com.example.pools.repository.LivroRepository;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
+import com.example.pools.model.Livro;
+import com.example.pools.repository.LivroRepository;
 
 @RestController
 @RequestMapping("/api/livro")
@@ -22,14 +29,18 @@ public class LivroController {
     @Autowired
     private LivroRepository livroRepository;
 
-    @GetMapping
+    @GetMapping("/{pageNumber}/{numberElements}")
     @PreAuthorize("hasRole('USER')")
-    public Page<Livro> getLivros() {
-        Pageable pageable = PageRequest.of(1, 10, Sort.Direction.ASC, "nome");
-
+    public Page<Livro> getLivros(@PathVariable(name="pageNumber") int pageNumber, @PathVariable(name="numberElements") int numberElements) {
+        Pageable pageable = PageRequest.of(pageNumber, numberElements, Sort.Direction.ASC, "nome");
         return livroRepository.findAll(pageable);
     }
     
+    @GetMapping
+    @PreAuthorize("hasRole('USER')")
+    public List<Livro> getLivros() {        
+        return livroRepository.findAll();
+    }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER')")
