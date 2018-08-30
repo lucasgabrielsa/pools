@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.pools.model.Livro;
 import com.example.pools.repository.LivroRepository;
+import com.example.pools.security.CurrentUser;
+import com.example.pools.security.UserPrincipal;
 
 @RestController
 @RequestMapping("/api/livro")
@@ -28,6 +32,8 @@ public class LivroController {
 
     @Autowired
     private LivroRepository livroRepository;
+    
+    private static final Logger logger = LoggerFactory.getLogger(PollController.class);
 
     @GetMapping("/{pageNumber}/{numberElements}")
     @PreAuthorize("hasRole('USER')")
@@ -38,7 +44,8 @@ public class LivroController {
     
     @GetMapping
     @PreAuthorize("hasRole('USER')")
-    public List<Livro> getLivros() {        
+    public List<Livro> getLivros(@CurrentUser UserPrincipal currentUser) {     
+    	logger.info(currentUser.toString());
         return livroRepository.findAll();
     }
 

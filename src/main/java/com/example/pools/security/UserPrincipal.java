@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -44,6 +46,7 @@ public class UserPrincipal implements UserDetails {
 		this.id = id;
 		this.name = name;
 		this.email = email;
+		this.username = username;
 		this.password = password;
 		this.authorities = authorities;
 	}
@@ -110,5 +113,10 @@ public class UserPrincipal implements UserDetails {
     public int hashCode() {
         return Objects.hash(id);
     }
+	
+	@Override
+	public String toString() {	
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
 
 }
