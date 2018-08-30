@@ -21,8 +21,6 @@ import org.hibernate.annotations.NaturalId;
 
 import com.example.pools.model.audit.DateAudit;
 
-
-
 @Entity
 @Table(name="users", uniqueConstraints = {
 		@UniqueConstraint(columnNames = {
