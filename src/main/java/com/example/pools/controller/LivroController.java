@@ -1,6 +1,5 @@
 package com.example.pools.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.pools.model.Livro;
@@ -35,18 +35,18 @@ public class LivroController {
     
     private static final Logger logger = LoggerFactory.getLogger(PollController.class);
 
-    @GetMapping("/{pageNumber}/{numberElements}")
-    @PreAuthorize("hasRole('USER')")
-    public Page<Livro> getLivros(@PathVariable(name="pageNumber") int pageNumber, @PathVariable(name="numberElements") int numberElements) {
-        Pageable pageable = PageRequest.of(pageNumber, numberElements, Sort.Direction.ASC, "nome");
-        return livroRepository.findAll(pageable);
-    }
+//    @GetMapping("/{pageNumber}/{numberElements}") 
+//    public Page<Livro> getLivros(@PathVariable(name="pageNumber") int pageNumber, @PathVariable(name="numberElements") int numberElements) {
+//        Pageable pageable = PageRequest.of(pageNumber, numberElements, Sort.Direction.ASC, "nome");
+//        return livroRepository.findAll(pageable);
+//    }
     
-    @GetMapping
-    @PreAuthorize("hasRole('USER')")
-    public List<Livro> getLivros(@CurrentUser UserPrincipal currentUser) {     
-    	logger.info(currentUser.toString());
-        return livroRepository.findAll();
+    @GetMapping   
+    public Page<Livro> getLivros(@RequestParam(name="pageNumber") int pageNumber, @RequestParam(name="numberElements") int numberElements, @RequestParam(name="order") String order, @RequestParam(name="sort") String sort) {  
+    	Sort.Direction directionSort = order.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+    	Pageable pageable = PageRequest.of(pageNumber, numberElements, directionSort, sort);
+    	//logger.info(currentUser.toString());
+        return livroRepository.findAll(pageable);
     }
 
     @GetMapping("/{id}")
