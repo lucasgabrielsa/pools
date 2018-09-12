@@ -25,6 +25,7 @@ import com.example.pools.model.Livro;
 import com.example.pools.repository.LivroRepository;
 import com.example.pools.security.CurrentUser;
 import com.example.pools.security.UserPrincipal;
+import com.example.specification.LivroSpecifications;
 
 @RestController
 @RequestMapping("/api/livro")
@@ -45,8 +46,13 @@ public class LivroController {
     public Page<Livro> getLivros(@RequestParam(name="pageNumber") int pageNumber, @RequestParam(name="numberElements") int numberElements, @RequestParam(name="order") String order, @RequestParam(name="sort") String sort) {  
     	Sort.Direction directionSort = order.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
     	Pageable pageable = PageRequest.of(pageNumber, numberElements, directionSort, sort);
-    	//logger.info(currentUser.toString());
-        return livroRepository.findAll(pageable);
+    	//logger.info(currentUser.toString());    	
+    	//String nomeLivro = "Qualquer coi";
+        //return livroRepository.findAll(LivroSpecifications.buscaNormal().and(LivroSpecifications.buscaNome(nomeLivro)), pageable);
+    	Livro livro = new Livro();
+    	//livro.setId(3l);
+    	livro.setNome("Guia do");
+    	return livroRepository.findAll(LivroSpecifications.buscaPadrao(livro), pageable);
     }
 
     @GetMapping("/{id}")
